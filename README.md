@@ -1,15 +1,17 @@
 # Cosmo Demo
 
-This demo consists of 2 subgraphs
+This demo consists of 2 subgraphs that provide a simple federation example
+for DC and Marvel comics data. Characters belong to publishers, so the
+router (supergraph) can join data across the subgraphs.
 
-- posts
-- users
+- **posts** exposes comic book characters
+- **users** exposes publishers
 
 ## Running Subgraphs Locally
 
 You can run the subgraphs with the script as shown below
 
-Posts runs on http://localhost:4001 and users runs on http://localhost:4002
+Characters run on http://localhost:4001 and publishers run on http://localhost:4002
 
 ```bash
 sh ./start-subgraphs.sh
@@ -51,3 +53,53 @@ docker run \
 ## CI/CD
 
 GitHub actions are setup to do schema checks on pull requests and schema publish on push to main.
+
+## Example Queries
+
+### Characters subgraph
+
+Query the `posts` subgraph directly to list characters:
+
+```graphql
+query {
+  characters {
+    id
+    name
+    publisherId
+  }
+}
+```
+
+### Publishers subgraph
+
+Query the `users` subgraph to list publishers:
+
+```graphql
+query {
+  publishers {
+    id
+    name
+  }
+}
+```
+
+### Federated query (router)
+
+When the router composes the subgraphs you can fetch characters with their
+publisher in a single request:
+
+```graphql
+query {
+  characters {
+    id
+    name
+    publisher {
+      name
+    }
+  }
+}
+```
+
+While DC Comics and Marvel Comics remain separate publishers, this federated
+query shows how the router connects the subgraphs by looking up a character's
+publisher.
