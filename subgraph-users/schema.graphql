@@ -1,6 +1,8 @@
 type Publisher @key(fields: "id") {
   id: ID!
   name: String!
+  founded: Int
+  comicCount: Int
 }
 
 extend type Character @key(fields: "id") {

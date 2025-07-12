@@ -5,7 +5,7 @@ for DC and Marvel comics data. Characters belong to publishers, so the
 router (supergraph) can join data across the subgraphs.
 
 - **posts** exposes comic book characters
-- **users** exposes publishers
+- **users** exposes publishers with founding year and comic totals
 
 ## Running Subgraphs Locally
 
@@ -79,6 +79,8 @@ query {
   publishers {
     id
     name
+    founded
+    comicCount
   }
 }
 ```
@@ -95,6 +97,8 @@ query {
     name
     publisher {
       name
+      founded
+      comicCount
     }
   }
 }
@@ -103,3 +107,22 @@ query {
 While DC Comics and Marvel Comics remain separate publishers, this federated
 query shows how the router connects the subgraphs by looking up a character's
 publisher.
+
+## Building and Publishing Containers
+
+To prepare images for use in TrueNAS or other Docker environments you can
+build the subgraphs locally and push them to GHCR. Replace `<user>` with your
+GitHub username.
+
+```bash
+# Build and push the characters subgraph
+docker build -t ghcr.io/<user>/subgraph-posts:latest ./subgraph-posts
+docker push ghcr.io/<user>/subgraph-posts:latest
+
+# Build and push the publishers subgraph
+docker build -t ghcr.io/<user>/subgraph-users:latest ./subgraph-users
+docker push ghcr.io/<user>/subgraph-users:latest
+```
+
+These images can then be pulled into Dockge on TrueNAS alongside the Cosmo
+router image.
