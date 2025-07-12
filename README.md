@@ -4,8 +4,8 @@ This demo consists of 2 subgraphs that provide a simple federation example
 for DC and Marvel comics data. Characters belong to publishers, so the
 router (supergraph) can join data across the subgraphs.
 
-- **posts** exposes comic book characters
-- **users** exposes publishers
+- **characters** exposes comic book characters
+- **publishers** exposes publishers
 
 ## Running Subgraphs Locally
 
@@ -57,16 +57,32 @@ GitHub Container Registry (GHCR). Replace `<owner>` with your GitHub user or
 organization.
 
 ```bash
-# Build and push the posts subgraph
-docker build -t ghcr.io/<owner>/subgraph-posts:latest ./subgraph-posts
-docker push ghcr.io/<owner>/subgraph-posts:latest
+# Build and push the characters subgraph
+docker build -t ghcr.io/<owner>/subgraph-characters:latest ./subgraph-characters
+docker push ghcr.io/<owner>/subgraph-characters:latest
 
-# Build and push the users subgraph
-docker build -t ghcr.io/<owner>/subgraph-users:latest ./subgraph-users
-docker push ghcr.io/<owner>/subgraph-users:latest
+# Build and push the publishers subgraph
+docker build -t ghcr.io/<owner>/subgraph-publishers:latest ./subgraph-publishers
+docker push ghcr.io/<owner>/subgraph-publishers:latest
 ```
 
 These images can then be pulled by TrueNAS or any other container host.
+
+### Building Images on TrueNAS
+
+To build the subgraph containers directly on a TrueNAS server you can open a
+shell in the SCALE UI and run the same `docker build` commands. Make sure your
+TrueNAS system is logged in to GHCR so it can push the images:
+
+```bash
+docker login ghcr.io
+docker build -t ghcr.io/<owner>/subgraph-characters:latest ./subgraph-characters
+docker push ghcr.io/<owner>/subgraph-characters:latest
+docker build -t ghcr.io/<owner>/subgraph-publishers:latest ./subgraph-publishers
+docker push ghcr.io/<owner>/subgraph-publishers:latest
+```
+
+Once published, create Docker containers in TrueNAS using these images.
 
 ## CI/CD
 
@@ -76,7 +92,7 @@ GitHub actions are setup to do schema checks on pull requests and schema publish
 
 ### Characters subgraph
 
-Query the `posts` subgraph directly to list characters:
+Query the `characters` subgraph directly to list characters:
 
 ```graphql
 query {
@@ -90,7 +106,7 @@ query {
 
 ### Publishers subgraph
 
-Query the `users` subgraph to list publishers:
+Query the `publishers` subgraph to list publishers:
 
 ```graphql
 query {

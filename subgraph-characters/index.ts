@@ -32,5 +32,5 @@ startStandaloneServer(server, {
     port: 4001,
   },
 })
-  .then(({ url }) => console.log(`Subgraph posts running at ${url}`))
+  .then(({ url }) => console.log(`Subgraph characters running at ${url}`))
   .catch((e) => console.error(e));
