@@ -29,4 +29,24 @@ export const characters = [
     name: "Thor",
     publisherId: "marvel",
   },
+  {
+    id: "7",
+    name: "Green Lantern",
+    publisherId: "dc",
+  },
+  {
+    id: "8",
+    name: "The Flash",
+    publisherId: "dc",
+  },
+  {
+    id: "9",
+    name: "Captain America",
+    publisherId: "marvel",
+  },
+  {
+    id: "10",
+    name: "Black Widow",
+    publisherId: "marvel",
+  },
 ];
