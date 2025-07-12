@@ -26,7 +26,7 @@ jobs:
 
       - name: Run subgraph checks
         run: |
-          wgc subgraph check posts --schema ./subgraph-posts/schema.graphql
-          wgc subgraph check users --schema ./subgraph-users/schema.graphql
+          wgc subgraph check characters --schema ./subgraph-characters/schema.graphql
+          wgc subgraph check publishers --schema ./subgraph-publishers/schema.graphql
         env:
           COSMO_API_KEY: ${{ secrets.COSMO_API_KEY }}

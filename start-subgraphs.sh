@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the directories
-DIRS=("subgraph-posts" "subgraph-users")
+DIRS=("subgraph-characters" "subgraph-publishers")
 
 # Loop through each directory
 for DIR in "${DIRS[@]}"; do

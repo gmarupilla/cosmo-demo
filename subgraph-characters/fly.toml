@@ -1,10 +1,10 @@
-app = "subgraph-users"
+app = "subgraph-characters"
 primary_region = "ewr"
 
 [build]
 
 [http_service]
-internal_port = 4002
+internal_port = 4001
 force_https = true
 auto_stop_machines = true
 auto_start_machines = true
