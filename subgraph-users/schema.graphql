@@ -1,15 +1,17 @@
-type User @key(fields: "id") {
+type Publisher @key(fields: "id") {
   id: ID!
   name: String!
+  founded: Int
+  comicCount: Int
 }
 
-type Post @key(fields: "id") {
+extend type Character @key(fields: "id") {
   id: ID!
-  authorId: ID! @external
-  author: User! @requires(fields: "authorId")
+  publisherId: ID! @external
+  publisher: Publisher! @requires(fields: "publisherId")
 }
 
 type Query {
-  users: [User!]!
-  user(id: ID!): User
+  publishers: [Publisher!]!
+  publisher(id: ID!): Publisher
 }
