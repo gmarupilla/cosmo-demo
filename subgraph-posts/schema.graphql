@@ -1,10 +1,10 @@
-type Post @key(fields: "id") {
+type Character @key(fields: "id") {
   id: ID!
-  content: String
-  authorId: ID!
+  name: String
+  publisherId: ID!
 }
 
 type Query {
-  posts: [Post!]!
-  post(id: ID!): Post
+  characters: [Character!]!
+  character(id: ID!): Character
 }

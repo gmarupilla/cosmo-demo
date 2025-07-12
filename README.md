@@ -1,15 +1,16 @@
 # Cosmo Demo
 
-This demo consists of 2 subgraphs
+This demo consists of 2 subgraphs that provide a simple federation example
+for DC and Marvel comics data.
 
-- posts
-- users
+- **posts** exposes comic book characters
+- **users** exposes publishers
 
 ## Running Subgraphs Locally
 
 You can run the subgraphs with the script as shown below
 
-Posts runs on http://localhost:4001 and users runs on http://localhost:4002
+Characters run on http://localhost:4001 and publishers run on http://localhost:4002
 
 ```bash
 sh ./start-subgraphs.sh

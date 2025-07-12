@@ -1,10 +1,10 @@
-export const users = [
+export const publishers = [
   {
-    id: "user-1",
-    name: "Jane Doe",
+    id: "dc",
+    name: "DC Comics",
   },
   {
-    id: "user-2",
-    name: "John Doe",
+    id: "marvel",
+    name: "Marvel Comics",
   },
 ];
