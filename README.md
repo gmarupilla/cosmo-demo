@@ -50,6 +50,24 @@ docker run \
   ghcr.io/wundergraph/cosmo/router:latest
 ```
 
+## Building and Publishing Subgraph Containers
+
+Each subgraph includes a `Dockerfile` so you can build and publish images to
+GitHub Container Registry (GHCR). Replace `<owner>` with your GitHub user or
+organization.
+
+```bash
+# Build and push the posts subgraph
+docker build -t ghcr.io/<owner>/subgraph-posts:latest ./subgraph-posts
+docker push ghcr.io/<owner>/subgraph-posts:latest
+
+# Build and push the users subgraph
+docker build -t ghcr.io/<owner>/subgraph-users:latest ./subgraph-users
+docker push ghcr.io/<owner>/subgraph-users:latest
+```
+
+These images can then be pulled by TrueNAS or any other container host.
+
 ## CI/CD
 
 GitHub actions are setup to do schema checks on pull requests and schema publish on push to main.
@@ -79,6 +97,8 @@ query {
   publishers {
     id
     name
+    foundedYear
+    totalComicsPublished
   }
 }
 ```
@@ -95,6 +115,8 @@ query {
     name
     publisher {
       name
+      foundedYear
+      totalComicsPublished
     }
   }
 }
