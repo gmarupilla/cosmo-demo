@@ -3,30 +3,30 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { readFileSync } from "fs";
 import gql from "graphql-tag";
-import { users } from "./data";
+import { publishers } from "./data";
 
 const typeDefs = gql(readFileSync("./schema.graphql", { encoding: "utf-8" }));
 
 const resolvers = {
   Query: {
-    users: () => {
-      return users;
+    publishers: () => {
+      return publishers;
     },
-    user: (_, { id }) => {
-      return users.find((user) => user.id === id);
+    publisher: (_: any, { id }) => {
+      return publishers.find((publisher) => publisher.id === id);
     },
   },
-  User: {
+  Publisher: {
     __resolveReference: ({ id }) => {
-      return users.find((user) => user.id === id);
+      return publishers.find((publisher) => publisher.id === id);
     },
   },
-  Post: {
-    author(post) {
-      return users.find((user) => user.id === post.authorId);
+  Character: {
+    publisher(character) {
+      return publishers.find((publisher) => publisher.id === character.publisherId);
     },
-    __resolveReference(post) {
-      return post;
+    __resolveReference(character) {
+      return character;
     },
   },
 };

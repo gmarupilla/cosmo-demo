@@ -1,17 +1,32 @@
-export const posts = [
+export const characters = [
   {
     id: "1",
-    content: "Sample content",
-    authorId: "user-1",
+    name: "Superman",
+    publisherId: "dc",
   },
   {
     id: "2",
-    content: "Some more sample content",
-    authorId: "user-1",
+    name: "Batman",
+    publisherId: "dc",
   },
   {
     id: "3",
-    content: "Quality content",
-    authorId: "user-2",
+    name: "Spider-Man",
+    publisherId: "marvel",
+  },
+  {
+    id: "4",
+    name: "Iron Man",
+    publisherId: "marvel",
+  },
+  {
+    id: "5",
+    name: "Wonder Woman",
+    publisherId: "dc",
+  },
+  {
+    id: "6",
+    name: "Thor",
+    publisherId: "marvel",
   },
 ];
