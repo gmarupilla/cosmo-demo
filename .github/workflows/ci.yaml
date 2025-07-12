@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies and build subgraphs
+        run: |
+          cd subgraph-characters && npm ci && npm run build && cd ..
+          cd subgraph-publishers && npm ci && npm run build && cd ..
+
+      - name: Start subgraphs and verify accessibility
+        run: |
+          node subgraph-characters/dist/index.js &
+          CHAR_PID=$!
+          node subgraph-publishers/dist/index.js &
+          PUB_PID=$!
+          sleep 5
+          curl -f http://localhost:4001/graphql -H 'Content-Type: application/json' -d '{"query":"{ __typename }"}'
+          curl -f http://localhost:4002/graphql -H 'Content-Type: application/json' -d '{"query":"{ __typename }"}'
+          kill $CHAR_PID $PUB_PID
+
+      - name: Install Cosmo CLI
+        run: npm install -g wgc@latest
+
+      - name: Compose router configuration
+        run: |
+          cd router
+          wgc router compose --input graph.localhost.yaml --out config.json
+
