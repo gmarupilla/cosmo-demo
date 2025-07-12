@@ -26,7 +26,6 @@ cd router
 ```
 
 2. Next generate the router config locally by running the compose command.
-
 ```bash
 wgc router compose --input graph.localhost.yaml --out config.json
 ```
